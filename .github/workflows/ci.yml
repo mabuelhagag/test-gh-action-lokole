@@ -3,11 +3,8 @@ name: CI
 on: [pull_request]
 
 jobs:
-  test-live:
-    runs-on: ubuntu-18.04
+  test-safe:
+    runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
-      - run: make github-env
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      - run: echo "SAFELY RAN"
