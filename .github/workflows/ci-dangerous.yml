@@ -8,7 +8,7 @@ on:
 jobs:
   test-live:
     runs-on: ubuntu-18.04
-    if: github.event.label.name == 'Safe to test' && github.event.workflow_run.conclusion == 'success'
+    if: github.event.label.name == 'safe-to-test' && github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v2
       - run: make github-env
