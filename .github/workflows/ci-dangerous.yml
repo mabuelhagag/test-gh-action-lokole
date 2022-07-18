@@ -1,0 +1,16 @@
+name: Dangerous
+
+on:
+  workflow_run:
+      workflows: [CI]
+      types:
+        - completed
+jobs:
+  test-live:
+    runs-on: ubuntu-18.04
+    if: github.event.label.name == 'Safe to test' && github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v2
+      - run: make github-env
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
