@@ -18,9 +18,13 @@ jobs:
   test-live:
     runs-on: ubuntu-18.04
     needs: test-safe
-    if: contains(github.event.pull_request.labels.*.name, 'safe-to-test')
     steps:
-      - uses: actions/checkout@v2
-      - run: make github-env
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      - run: |
+          x=${{ toJson(github.event.pull_request.labels.*.name) }}
+          echo $x
+#     if: contains(github.event.pull_request.labels.*.name, 'safe-to-test')
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: make github-env
+#         env:
+#           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
