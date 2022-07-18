@@ -2,23 +2,23 @@ name: CI
 
 on:
   pull_request_target:
-    types: [labeled]
-  pull_request:
     types:
       - opened
       - reopened
       - synchronize
+      - labelled
 
 jobs:
   test-safe:
     runs-on: ubuntu-20.04
     steps:
-      - run: echo "SAFELY RAN"
+      - run: echo "${{ github.event_name }}"
+      
 
   test-live:
     runs-on: ubuntu-18.04
     needs: test-safe
-    if: contains(github.event.pull_request.labels.*.name, 'safe-to-test')
+    if: contains(github.event.pull_request.labels.*.name, 'safe-to-run')
     steps:
       - uses: actions/checkout@v2
       - run: make github-env
